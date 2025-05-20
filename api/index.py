@@ -1,13 +1,5 @@
-import os
 import json
-
-def read_marks(names):
-    # Load JSON data
-    with open(os.path.join(os.path.dirname(__file__), '..', 'marks.json')) as f:
-        data = json.load(f)
-    marks_dict = {entry['name']: entry['marks'] for entry in data}
-    # Return marks for each requested name, or None if not found
-    return [marks_dict.get(name, None) for name in names]
+import os
 
 def handler(request, response):
     # Enable CORS
@@ -21,5 +13,11 @@ def handler(request, response):
         response.status_code = 400
         return response.json({"error": "No names provided"})
 
-    marks = read_marks(names)
+    # Read marks.json in the same directory
+    with open(os.path.join(os.path.dirname(__file__), 'marks.json')) as f:
+        data = json.load(f)
+    marks_dict = {entry['name']: entry['marks'] for entry in data}
+    marks = [marks_dict.get(name, None) for name in names]
+
     return response.json({"marks": marks})
+
