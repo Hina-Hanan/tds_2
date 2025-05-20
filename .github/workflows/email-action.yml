@@ -1,0 +1,15 @@
+name: Email Step Demo
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: 22f3000561@ds.study.iitm.ac.in
+        run: echo "Hello, world! This step is named after my email."
